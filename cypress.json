@@ -1,0 +1,14 @@
+{"ChromeWebSecurity":false,
+"reporter":"mochawesome",
+"reporterOptions":{
+    "reportDir":"cypress/reports",
+    "reportFileName":"report",
+    "owerwrite":true,
+    "html":true,
+    "json":true,
+    "charts":true
+}
+
+
+
+}

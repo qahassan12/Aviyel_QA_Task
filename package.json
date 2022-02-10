@@ -1,0 +1,27 @@
+{
+  "name": "cypress-ato",
+  "version": "1.0.0",
+  "description": "this is cypress",
+  "main": "index.js",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "merge": "mochawesome-merge cypress/reports/mochawesome.json > cypress/reports/output.json",
+    "generate_mochawesome_report": "marge cypress/reports/output.json --reportDir ../ --inline",
+    "final_report": "yarn run merge && yarn run generate_mochawesome_report"
+  },
+  "author": "Amir",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^9.2.1"
+  },
+  "dependencies": {
+    "cypress-file-upload": "^5.0.8",
+    "mocha": "^9.1.4",
+    "mochawesome": "^7.0.1",
+    "mochawesome-merge": "^4.2.1",
+    "mochawesome-report-generator": "^6.0.1",
+    "x2js": "^3.4.3",
+    "xlsx": "^0.18.0"
+  }
+}

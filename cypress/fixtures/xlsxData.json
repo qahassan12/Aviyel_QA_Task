@@ -1,0 +1,63 @@
+{
+  "rows": [
+    {
+      "method": "POST",
+      "url": "https://restful-booker.herokuapp.com/auth",
+      "username": "admin",
+      "password": "password123",
+      "status": 200,
+      "firstname": "Sally",
+      "lastname": "Brown",
+      "totalprice": 360,
+      "depositpaid": false,
+      "checkin": "2020-05-28T18:59:48.000Z",
+      "checkout": "2021-03-20T18:59:48.000Z",
+      "additionalneeds": "Breakfast",
+      "response": "Created"
+    },
+    {
+      "method": "GET",
+      "url": "https://restful-booker.herokuapp.com/booking/",
+      "status": 200,
+      "firstname": "Jim",
+      "lastname": "Brown",
+      "totalprice": 111,
+      "depositpaid": true,
+      "checkin": "2013-02-22T18:59:48.000Z",
+      "checkout": "2014-10-22T18:59:48.000Z",
+      "additionalneeds": "Breakfast"
+    },
+    {
+      "method": "GET",
+      "url": "https://restful-booker.herokuapp.com/booking/6",
+      "status": 200,
+      "firstname": "Mary",
+      "lastname": "Ericsson",
+      "totalprice": 1200,
+      "depositpaid": false,
+      "checkin": "2021-02-24T18:59:48.000Z",
+      "checkout": "2023-10-22T18:59:48.000Z",
+      "additionalneeds": "Breakfast"
+    },
+    {
+      "method": "POST",
+      "url": "https://restful-booker.herokuapp.com/booking",
+      "status": 200
+    },
+    {
+      "method": "PUT",
+      "url": "https://restful-booker.herokuapp.com/booking/",
+      "status": 200
+    },
+    {
+      "method": "DELETE",
+      "url": "https://restful-booker.herokuapp.com/booking/",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "url": "https://restful-booker.herokuapp.com/ping",
+      "status": 201
+    }
+  ]
+}

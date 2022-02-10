@@ -1,0 +1,107 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2022-02-09T10:23:19.489Z",
+    "end": "2022-02-09T10:23:24.446Z",
+    "duration": 4957,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "47a12041-4e02-4c09-8773-5f08c1fb70c1",
+      "title": "",
+      "fullFile": "cypress/integration/test/dataDriven.js",
+      "file": "cypress/integration/test/dataDriven.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "821b0f0d-5719-4838-9740-bd60c16e6677",
+          "title": "Data Driven",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "data driven login",
+              "fullTitle": "Data Driven data driven login",
+              "timedOut": null,
+              "duration": 4697,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.fixture('xlsxData').then(data => {\n  cy.request({\n    \"method\": data.rows[1].method,\n    \"url\": data.rows[1].url\n  }).then(res => {\n    expect(res.status).to.equal(data.rows[1].status);\n  });\n  cy.request({\n    \"method\": data.rows[2].method,\n    \"url\": data.rows[2].url\n  }).then(res => {\n    let date = data.rows[0].checkin;\n    let checkin = date.substr(0, 10);\n    let date2 = data.rows[0].checkout;\n    let checkout = date2.substr(0, 10);\n    expect(res.status).to.equal(data.rows[2].status);\n    expect(res.body.firstname).to.equal(data.rows[0].firstname);\n    expect(res.body.lastname).to.equal(data.rows[0].lastname);\n    expect(res.body.totalprice).to.equal(data.rows[0].totalprice);\n    expect(res.body.depositpaid).to.equal(data.rows[0].depositpaid);\n    expect(res.body.bookingdates.checkin).to.equal(checkin);\n    expect(res.body.bookingdates.checkout).to.equal(checkout);\n  });\n  cy.request({\n    'method': data.rows[3].method,\n    'url': data.rows[3].url,\n    body: {\n      'firstname': data.rows[1].firstname,\n      'lastname': data.rows[1].lastname,\n      'totalprice': data.rows[1].totalprice,\n      'depositpaid': data.rows[1].depositpaid,\n      'bookingdates': {\n        'checkin': data.rows[1].checkin,\n        'checkout': data.rows[1].checkout\n      },\n      'additionalneeds': data.rows[0].additionalneeds\n    }\n  }).then(res => {\n    let date1 = data.rows[1].checkin;\n    let checkin = date1.substr(0, 10);\n    let date2 = data.rows[1].checkout;\n    let checkout = date2.substr(0, 10);\n    expect(res.status).to.eq(data.rows[3].status);\n    expect(res.body.booking).has.property('firstname', data.rows[1].firstname);\n    expect(res.body.booking).has.property('lastname', data.rows[1].lastname);\n    expect(res.body.booking).has.property('totalprice', data.rows[1].totalprice);\n    expect(res.body.booking).has.property('depositpaid', data.rows[1].depositpaid);\n    expect(res.body.booking.bookingdates).has.property('checkin', checkin);\n    expect(res.body.booking.bookingdates).has.property('checkout', checkout);\n    expect(res.body.booking).has.property('additionalneeds', data.rows[0].additionalneeds);\n  }).then(res => {\n    cy.log(res.body.bookingid);\n    const id = res.body.bookingid;\n    cy.request({\n      'method': data.rows[0].method,\n      'url': data.rows[0].url,\n      failOnStatusCode: false,\n      headers: {\n        'content-type': 'application/json',\n        'Accept': 'application/json',\n        'authorization': 'Basic YWRtaW46cGFzc3dvcmQxMjM='\n      },\n      body: {\n        username: 'admin',\n        password: 'password123'\n      }\n    }).then(res => {\n      cy.log(res.body);\n      const token = res.body;\n      cy.request({\n        'method': data.rows[4].method,\n        'url': data.rows[4].url + id,\n        failOnStatusCode: false,\n        headers: {\n          'content-type': 'application/json',\n          'Accept': 'application/json',\n          'authorization': 'Basic YWRtaW46cGFzc3dvcmQxMjM='\n        },\n        body: {\n          'firstname': data.rows[2].firstname,\n          'lastname': data.rows[2].lastname,\n          'totalprice': data.rows[2].totalprice,\n          'depositpaid': data.rows[2].depositpaid,\n          'bookingdates': {\n            'checkin': data.rows[2].checkin,\n            'checkout': data.rows[2].checkout\n          },\n          'additionalneeds': data.rows[0].additionalneeds\n        }\n      }).then(res => {\n        let date = data.rows[2].checkin;\n        let checkin = date.substr(0, 10);\n        let date2 = data.rows[2].checkout;\n        let checkout = date2.substr(0, 10);\n        cy.log(id);\n        expect(res.body).has.property('firstname', data.rows[2].firstname);\n        expect(res.body).has.property('lastname', data.rows[2].lastname);\n        expect(res.body).has.property('totalprice', data.rows[2].totalprice);\n        expect(res.body).has.property('depositpaid', data.rows[2].depositpaid);\n        expect(res.body.bookingdates).has.property('checkin', checkin);\n        expect(res.body.bookingdates).has.property('checkout', checkout);\n        expect(res.body).has.property('additionalneeds', data.rows[0].additionalneeds);\n      }).then(res => {\n        expect(res.status).to.eq(data.rows[4].status);\n        cy.request({\n          'method': data.rows[0].method,\n          'url': data.rows[0].url,\n          body: {\n            'username': data.rows[0].username,\n            'password': data.rows[0].password\n          }\n        }).then(() => {\n          cy.request({\n            'method': data.rows[5].method,\n            'url': data.rows[5].url + id,\n            failOnStatusCode: false,\n            headers: {\n              'content-type': 'application/json',\n              'Authorization': 'Basic YWRtaW46cGFzc3dvcmQxMjM='\n            }\n          });\n        }).then(res => {\n          cy.log(res.body);\n          expect(res.status).to.eq(data.rows[5].status);\n          cy.request({\n            'method': data.rows[6].method,\n            'url': data.rows[6].url\n          }).then(res => {\n            expect(res.status).to.eq(data.rows[6].status);\n            expect(res.body).to.eq(data.rows[0].response);\n          });\n        });\n      });\n    });\n  });\n});",
+              "err": {},
+              "uuid": "c3cff15b-bbea-4608-8319-5989c6198f1d",
+              "parentUUID": "821b0f0d-5719-4838-9740-bd60c16e6677",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "c3cff15b-bbea-4608-8319-5989c6198f1d"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 4697,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.0.1"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "reportFileName": "report",
+        "owerwrite": true,
+        "html": true,
+        "json": true,
+        "charts": true
+      },
+      "version": "6.0.1"
+    }
+  }
+}
